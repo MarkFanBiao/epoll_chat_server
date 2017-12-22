@@ -2,23 +2,7 @@
 
 int read_data(int sock)
 {   //9999name|xx  或 9999msg|yy|nihao
-#if 0
-    char buflen[5];
-
-    if(doRead(sock, buflen, 4) < 0)     //第一次没读到东西，说明socket出错了
-    {                                   //doRead 有死循环，是阻塞的
-        delUser(sock);
-        return -1;
-    }
-
-    buflen[4] = 0;
-    int len = atoi(buflen);
-
-    char buf[8192];
-    doRead(sock, buf, len);
-    buf[len] = 0;
-#endif
-    //但是 若用read，只能读一次，不知道报文有没有读全，或者粘包，
+    //若用read，只能读一次，不知道报文有没有读全，或者粘包，
     //所以对每个客户端设置一个buf缓冲区，记录报文总长，和已经被接受的长度
     //可以把这个buf放在用户链表的用户结点中
 
